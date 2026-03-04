@@ -1,6 +1,6 @@
 # Next-Testes
 
-Projeto de estudos com Next.js 15 App Router, consumindo a [Fake Store API](https://fakestoreapi.com).
+Projeto de testes com Next.js 15 App Router, consumindo a [Fake Store API](https://fakestoreapi.com).
 
 ---
 
