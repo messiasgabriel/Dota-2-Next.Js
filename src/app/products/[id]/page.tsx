@@ -1,14 +1,7 @@
-import { getProduct } from "@/services/product.service"
+import { addToCart, getProduct } from "@/services/product.service"
+import { PageProps } from "@/types/product"
 import ProductDetails from "@/components/ProductDetails"
 import Link from "next/link"
-
-type PageProps = { params: Promise<{id: string}>}
-
-async function addToCart(formData: FormData) {
-    'use server'
-    const id = formData.get('id')
-    console.log('Adicionado ao carrinho:', id)
-}
 
 export default async function ProductPage({params}: PageProps) {
     const { id } = await params

@@ -13,7 +13,7 @@ export default async function ProductsPage() {
 
             <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-5 w-full max-w-275">
                 {products.map(product => (
-                <ProductCard key={product.id} product={product}/>
+                    <ProductCard key={product.id} product={product}/>
                 ))}
             </div>
 

@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next-Testes
 
-## Getting Started
+Projeto de estudos com Next.js 15 App Router, consumindo a [Fake Store API](https://fakestoreapi.com).
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tópicos importantes
+
+### 1. App Router
+Roteamento baseado em arquivos dentro de `/app`. Cada `page.tsx` vira uma rota automaticamente.
+
+```
+/app/page.tsx               → /
+/app/products/page.tsx      → /products
+/app/products/[id]/page.tsx → /products/123
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Server Components / Client Components
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Server Component** (padrão): renderiza no servidor, sem JS enviado ao cliente. Ideal para fetch de dados e SEO.
+- **Client Component** (`'use client'`): necessário para interatividade — `useState`, `onClick`, etc.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Neste projeto: as pages e componentes de exibição são Server Components. O `ProductCard` é Client Component por ter o botão de favoritar com estado.
 
-## Learn More
+### 3. Server Actions
 
-To learn more about Next.js, take a look at the following resources:
+Funções que rodam no servidor, chamadas diretamente de um `<form>`. Substituem API routes para mutations simples.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```ts
+export async function addToCart(formData: FormData) {
+  'use server'
+  const id = formData.get('id')
+  console.log('Adicionado:', id)
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Layouts
 
-## Deploy on Vercel
+Layouts são compartilhados automaticamente entre todas as rotas filhas.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/layout.tsx            → aplicado em todas as páginas
+app/products/layout.tsx   → aplicado só em /products/*
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Arquitetura
+
+Separação de responsabilidades aplicada:
+
+| Camada        | Arquivo                           | Responsabilidade |
+|---            |---                                |---
+| Tipos         | `src/types/product.ts`            | Tipagem centralizada |
+| Service       | `src/services/product.service.ts` | Fetch de dados e Server Actions |
+| Components    | `src/components/`                 | Renderização de UI |
+| Pages         | `src/app/**/page.tsx`             | Composição |
+
+---
+
+## Stack
+
+- [Next.js 15](https://nextjs.org) — App Router + Turbopack
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [TypeScript](https://typescriptlang.org)
+- [Fake Store API](https://fakestoreapi.com)
