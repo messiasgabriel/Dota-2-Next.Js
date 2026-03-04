@@ -1,0 +1,17 @@
+import { Product } from "@/types/product"
+import { notFound } from "next/navigation"
+
+export async function getProduct(id: string): Promise<Product> {
+    const res = await fetch(`https://fakestoreapi.com/products/${id}`)
+
+    if (!res.ok) {
+        notFound()
+    }
+
+    return res.json()
+}
+
+export async function getProducts(): Promise<Product[]> {
+    const res = await fetch('https://fakestoreapi.com/products')
+    return res.json()
+}
