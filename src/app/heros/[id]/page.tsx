@@ -1,9 +1,9 @@
 import { getHero, getAdjacentHeroes } from "@/services/hero.service"
 import { PageProps } from "@/types/hero"
-import HeroDetails from "@/components/HeroDetails"
-import HeroSkillsDetails from "@/components/HeroSkillsDetails"
+import HeroRender from "@/components/HeroRender"
+import HeroStats from "@/components/HeroStats"
+import HeroAbilities from "@/components/HeroAbilities"
 import HeroNav from "@/components/HeroNav"
-import HeroSection from "@/components/HeroSection"
 
 export default async function HeroPage({ params }: PageProps) {
     const { id } = await params
@@ -16,9 +16,9 @@ export default async function HeroPage({ params }: PageProps) {
 
     return (
         <>
-            <HeroSection slug={heroSlug} name={hero.localized_name} primaryAttr={hero.primary_attr} />
-            <HeroDetails hero={hero} />
-            <HeroSkillsDetails abilities={hero.abilities} abilityDetails={hero.abilityDetails} heroSlug={heroSlug} />
+            <HeroRender slug={heroSlug} name={hero.localized_name} primaryAttr={hero.primary_attr} />
+            <HeroStats hero={hero} />
+            <HeroAbilities abilities={hero.abilities} abilityDetails={hero.abilityDetails} heroSlug={heroSlug} />
             <HeroNav prev={prev} next={next} />
         </>
     )

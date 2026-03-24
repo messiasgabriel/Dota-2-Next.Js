@@ -7,14 +7,13 @@ type Props = {
     primaryAttr: string
 }
 
-export default function HeroSection({ slug, name, primaryAttr }: Props) {
+export default function HeroRender({ slug, name, primaryAttr }: Props) {
     const base = `${HERO_VIDEO_BASE}/${slug}`
 
     return (
-        <section className="hero-section w-full flex flex-col items-center justify-between px-4 max-w-5xl">
-            {/* INFO */}
-            <div className="hero-section__info self-start flex flex-col gap-3">
-                <div className="hero-section__attr flex items-center gap-2">
+        <section className="hero-render w-full flex flex-col items-center justify-between px-4 max-w-5xl">
+            <div className="hero-render__info self-start flex flex-col gap-3">
+                <div className="hero-render__attr flex items-center gap-2">
                     {ATTR_ICON[primaryAttr] && (
                         <Image src={ATTR_ICON[primaryAttr]} alt={primaryAttr} width={20} height={20} unoptimized />
                     )}
@@ -23,14 +22,15 @@ export default function HeroSection({ slug, name, primaryAttr }: Props) {
                     </span>
                 </div>
 
-                <h1 className="hero-section__name text-white font-reaver text-5xl uppercase leading-none">
-                    {name}
+                <h1 className="hero-render__name text-white font-reaver text-5xl uppercase leading-none flex flex-col">
+                    {name.split(' ').map((word, i) => (
+                        <span key={i}>{word}</span>
+                    ))}
                 </h1>
             </div>
 
-            {/* VIDEO */}
             <video
-                className="hero-section__video w-80 sm:w-120 object-contain shrink-0"
+                className="hero-render__video w-80 sm:w-120 object-contain shrink-0"
                 poster={`${base}.png`}
                 autoPlay
                 preload="auto"

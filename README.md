@@ -1,66 +1,77 @@
-# Next-Testes
+# Dota-2-Next.Js
 
-Projeto de testes com Next.js 15 App Router, consumindo a [Fake Store API](https://fakestoreapi.com).
+Recriação fiel da página de heróis do [Dota 2](https://www.dota2.com/heroes), construída com Next.js 16 App Router. O projeto consome dados em tempo real da API pública do OpenDota e assets oficiais da Steam CDN para replicar a experiência visual do site original.
 
 ---
 
-## Tópicos importantes
+## Funcionalidades
 
-### 1. App Router
-Roteamento baseado em arquivos dentro de `/app`. Cada `page.tsx` vira uma rota automaticamente.
-
-```
-/app/page.tsx               → /
-/app/products/page.tsx      → /products
-/app/products/[id]/page.tsx → /products/123
-```
-
-### 2. Server Components / Client Components
-
-- **Server Component** (padrão): renderiza no servidor, sem JS enviado ao cliente. Ideal para fetch de dados e SEO.
-- **Client Component** (`'use client'`): necessário para interatividade — `useState`, `onClick`, etc.
-
-Neste projeto: as pages e componentes de exibição são Server Components. O `ProductCard` é Client Component por ter o botão de favoritar com estado.
-
-### 3. Server Actions
-
-Funções que rodam no servidor, chamadas diretamente de um `<form>`. Substituem API routes para mutations simples.
-
-```ts
-export async function addToCart(formData: FormData) {
-  'use server'
-  const id = formData.get('id')
-  console.log('Adicionado:', id)
-}
-```
-
-### 4. Layouts
-
-Layouts são compartilhados automaticamente entre todas as rotas filhas.
-
-```
-app/layout.tsx            → aplicado em todas as páginas
-app/products/layout.tsx   → aplicado só em /products/*
-```
+- **Lista de heróis** com imagens e filtro alfabético
+- **Página de detalhes** por herói com:
+  - Render 3D animado (vídeo WebM/MOV)
+  - Atributos base (FOR/AGI/INT) com ganho por nível
+  - Barras de HP e Mana calculadas pelo nível 1
+  - Funções/Roles com indicador visual de ativo/inativo
+  - Estatísticas de combate com ícones oficiais (Ataque, Defesa, Mobilidade)
+  - Habilidades com vídeo de demonstração e painel de detalhes
+- **Navegação** entre heróis (anterior / próximo) com imagem animada no hover
+- Interface totalmente em **PT-BR**
+- Layout **responsivo** para mobile e desktop
+- Fonte oficial **Reaver** do Dota 2
 
 ---
 
 ## Arquitetura
 
-Separação de responsabilidades aplicada:
+| Camada | Arquivo | Responsabilidade |
+|---|---|---|
+| Tipos | `src/types/hero.ts` | Tipagem centralizada dos dados da API |
+| Constantes | `src/constants/hero.ts` | URLs de CDN, ícones, labels e roles |
+| Tradução | `src/constants/translations.ts` | Mapa estático EN → PT-BR |
+| Service | `src/services/hero.service.ts` | Fetch paralelo de heroes, abilities e hero_abilities |
+| Pages | `src/app/heros/**/page.tsx` | Composição e Server Components |
+| Components | `src/components/` | Renderização de UI |
 
-| Camada        | Arquivo                           | Responsabilidade |
-|---            |---                                |---
-| Tipos         | `src/types/product.ts`            | Tipagem centralizada |
-| Service       | `src/services/product.service.ts` | Fetch de dados e Server Actions |
-| Components    | `src/components/`                 | Renderização de UI |
-| Pages         | `src/app/**/page.tsx`             | Composição |
+### Componentes
+
+| Componente | Responsabilidade |
+|---|---|
+| `HeroCard` | Card da listagem com imagem e hover |
+| `HeroRender` | Render 3D animado + nome e atributo primário |
+| `HeroStats` | Barra horizontal de stats (atributos, roles, combate) |
+| `HeroAbilities` | Gerencia estado da habilidade selecionada |
+| `AbilityPlayer` | Vídeo da habilidade + thumbnails de seleção |
+| `AbilityInfo` | Painel de detalhes da habilidade (desc, props, CD, mana) |
+| `AbilityImage` | Ícone de habilidade com fallback de erro e vídeo no hover |
+| `HeroNav` | Navegação entre heróis com imagem animada |
+
+---
+
+## Fontes de dados
+
+| Dado | Endpoint |
+|---|---|
+| Lista e stats dos heróis | `api.opendota.com/api/constants/heroes` |
+| Nomes das habilidades por herói | `api.opendota.com/api/constants/hero_abilities` |
+| Detalhes das habilidades | `api.opendota.com/api/constants/abilities` |
+| Imagens e vídeos | Steam CDN (`cdn.steamstatic.com`, `cdn.akamai.steamstatic.com`, `cdn.cloudflare.steamstatic.com`) |
 
 ---
 
 ## Stack
 
-- [Next.js 15](https://nextjs.org) — App Router + Turbopack
+- [Next.js 16](https://nextjs.org) — App Router + Turbopack
 - [Tailwind CSS v4](https://tailwindcss.com)
 - [TypeScript](https://typescriptlang.org)
-- [Fake Store API](https://fakestoreapi.com)
+- [OpenDota Constants API](https://api.opendota.com/api/constants)
+
+---
+
+## Rodando localmente
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Acesse `http://localhost:3000/heros`.
