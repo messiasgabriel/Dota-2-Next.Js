@@ -5,7 +5,15 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "fakestoreapi.com",
+        hostname: "cdn.akamai.steamstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.steamstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.cloudflare.steamstatic.com",
       },
     ],
   },

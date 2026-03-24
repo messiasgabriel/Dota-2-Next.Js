@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Reaver';
+  src: url('/Reaver-Regular.woff') format('woff'),
+       url('/Reaver-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-dota-primary: #1B2838;
+  --color-dota-secondary: #16202D;
+  --color-dota-dark: #0E1419;
+  --color-dota-header: #171A21;
+  --color-dota-card: #1E2329;
+  --color-dota-red: #D32F2F;
+  --color-dota-blue: #3A7CA5;
+  --color-dota-cyan: #00B4D8;
+  --color-dota-gold: #FFA726;
+  --color-dota-btn: #66C0F4;
+  --color-dota-gray: #B8B8B8;
+  --color-dota-muted: #8A8A8A;
 }
 
 @theme inline {
@@ -10,17 +29,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-reaver: 'Reaver', serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #1B2838;
+  --foreground: #FFFFFF;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: url('https://cdn.steamstatic.com/apps/dota2/images/dota_react/backgrounds/greyfade.jpg') center / cover no-repeat fixed;
+  color: #FFFFFF;
+  min-height: 100vh;
 }
