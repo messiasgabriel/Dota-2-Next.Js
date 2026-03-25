@@ -21,7 +21,7 @@ export default function HeroCard({ hero }: HeroCardProps) {
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 220px"
                     className="object-cover"
-                    priority
+                    loading="lazy"
                 />
             </div>
             <div className="hero-card__overlay absolute inset-0 rounded-xl bg-linear-to-t from-black/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
