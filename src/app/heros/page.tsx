@@ -1,6 +1,8 @@
 import { getHeroes } from "@/services/hero.service"
 import HeroGrid from "@/components/HeroGrid"
 
+export const dynamic = 'force-dynamic'
+
 export default async function HeroesPage() {
     const heroes = await getHeroes()
 

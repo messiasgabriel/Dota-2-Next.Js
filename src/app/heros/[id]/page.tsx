@@ -5,6 +5,8 @@ import HeroStats from "@/components/HeroStats"
 import HeroAbilities from "@/components/HeroAbilities"
 import HeroNav from "@/components/HeroNav"
 
+export const dynamic = 'force-dynamic'
+
 export default async function HeroPage({ params }: PageProps) {
     const { id } = await params
     const [hero, { prev, next }] = await Promise.all([
