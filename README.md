@@ -1,5 +1,7 @@
 # Dota-2-Next.Js
 
+**[Ver online →](https://dota-2-next-js.vercel.app/)**
+
 Recriação fiel da página de heróis do [Dota 2](https://www.dota2.com/heroes), construída com Next.js 16 App Router. O projeto consome dados em tempo real da API pública do OpenDota e assets oficiais da Steam CDN para replicar a experiência visual do site original.
 
 ---
